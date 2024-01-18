@@ -1,5 +1,6 @@
 // import { Inter } from 'next/font/google'
 
+import getMinAndMaxByCurrency from "@/util/getMinAndMaxByCurrency";
 import bitnovoApiClient from "@/util/network/bitnovoApiClient";
 import { Currencies } from "@/util/network/domain/interfaces";
 
@@ -35,6 +36,8 @@ export default function Home({ currencies }: Props) {
   } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
 
+  const currentCurrency = getMinAndMaxByCurrency(watch("currency"));
+
   return (
     <div className="flex flex-col w-full container mx-auto px-4">
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-8">
@@ -43,13 +46,27 @@ export default function Home({ currencies }: Props) {
           <label className="font-bold">Importe a pagar</label>
           <input
             type="number"
-            {...register("amount", { required: true })}
+            {...register("amount", {
+              required: true,
+              min: currentCurrency.min,
+              max: currentCurrency.max,
+            })}
             placeholder="Añade importe a pagar"
             className="rounded border-[#647184] border-solid border-[1px] px-3 py-[18px]"
           ></input>
           {errors.amount?.type === "required" && (
             <p role="alert" className="text-red-500">
               Importe es requerido
+            </p>
+          )}
+          {errors.amount?.type === "min" && (
+            <p role="alert" className="text-red-500">
+              El importe mínimo es {currentCurrency.min}
+            </p>
+          )}
+          {errors.amount?.type === "max" && (
+            <p role="alert" className="text-red-500">
+              El importe maxímo es {currentCurrency.max}
             </p>
           )}
         </div>
