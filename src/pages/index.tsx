@@ -43,17 +43,22 @@ export default function Home({ currencies }: Props) {
           <label className="font-bold">Importe a pagar</label>
           <input
             type="number"
-            {...register("amount")}
+            {...register("amount", { required: true })}
             placeholder="Añade importe a pagar"
             className="rounded border-[#647184] border-solid border-[1px] px-3 py-[18px]"
           ></input>
+          {errors.amount?.type === "required" && (
+            <p role="alert" className="text-red-500">
+              Importe es requerido
+            </p>
+          )}
         </div>
 
         <div className="flex flex-col gap-1">
           <label className="font-bold">Selecionar moneda</label>
           <select
-            {...register("currency")}
-            className="rounded border-[#647184] border-solid border-[1px] px-3 py-[18px]"
+            {...register("currency", { required: true })}
+            className="rounded border-[#647184] border-solid border-[1px] px-3 py-[18px] bg-white"
           >
             {currencies.map((currency) => (
               <option key={currency.name} value={currency.name}>
@@ -61,16 +66,26 @@ export default function Home({ currencies }: Props) {
               </option>
             ))}
           </select>
+          {errors.currency?.type === "required" && (
+            <p role="alert" className="text-red-500">
+              Moneda es requerido
+            </p>
+          )}
         </div>
 
         <div className="flex flex-col gap-1">
-          <label className="font-bold">concepto</label>
+          <label className="font-bold">Concepto</label>
           <input
             type="text"
-            {...register("concept")}
+            {...register("concept", { required: true })}
             className="rounded border-[#647184] border-solid border-[1px] px-3 py-[18px]"
             placeholder="Añade un descripción del pago"
           ></input>
+          {errors.concept?.type === "required" && (
+            <p role="alert" className="text-red-500">
+              Concepto es requerido
+            </p>
+          )}
         </div>
 
         <button
