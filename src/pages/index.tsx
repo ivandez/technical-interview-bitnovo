@@ -36,29 +36,50 @@ export default function Home({ currencies }: Props) {
   const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
 
   return (
-    <>
-      <h1>crear pago</h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <label>importe a pagar</label>
-        <input type="number" {...register("amount")}></input>
-        <br />
+    <div className="flex flex-col w-full container mx-auto px-4">
+      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-8">
+        <h1 className="text-2xl text-center">Crear pago</h1>
+        <div className="flex flex-col gap-1">
+          <label className="font-bold">Importe a pagar</label>
+          <input
+            type="number"
+            {...register("amount")}
+            placeholder="Añade importe a pagar"
+            className="rounded border-[#647184] border-solid border-[1px] px-3 py-[18px]"
+          ></input>
+        </div>
 
-        <label>selecionar moneda</label>
-        <select {...register("currency")}>
-          {currencies.map((currency) => (
-            <option key={currency.name} value={currency.name}>
-              {currency.name}
-            </option>
-          ))}
-        </select>
-        <br></br>
+        <div className="flex flex-col gap-1">
+          <label className="font-bold">Selecionar moneda</label>
+          <select
+            {...register("currency")}
+            className="rounded border-[#647184] border-solid border-[1px] px-3 py-[18px]"
+          >
+            {currencies.map((currency) => (
+              <option key={currency.name} value={currency.name}>
+                {currency.name}
+              </option>
+            ))}
+          </select>
+        </div>
 
-        <label>concepto</label>
-        <input type="text" {...register("concept")}></input>
-        <br></br>
+        <div className="flex flex-col gap-1">
+          <label className="font-bold">concepto</label>
+          <input
+            type="text"
+            {...register("concept")}
+            className="rounded border-[#647184] border-solid border-[1px] px-3 py-[18px]"
+            placeholder="Añade un descripción del pago"
+          ></input>
+        </div>
 
-        <button type="submit">Continuar</button>
+        <button
+          type="submit"
+          className="rounded border-solid bg-blue-800 w-full text-white px-18 py-6"
+        >
+          Continuar
+        </button>
       </form>
-    </>
+    </div>
   );
 }
