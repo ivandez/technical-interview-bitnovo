@@ -1,11 +1,9 @@
 // import { Inter } from 'next/font/google'
-import { useRouter } from "next/router";
 import { setPayment } from "@/redux/features/paymentSlice";
-import { RootState } from "@/redux/store";
 import getMinAndMaxByCurrency from "@/util/getMinAndMaxByCurrency";
 import bitnovoApiClient from "@/util/network/bitnovoApiClient";
 import { Currencies } from "@/util/network/domain/interfaces";
-
+import { useRouter } from "next/router";
 // const inter = Inter({ subsets: ['latin'] })
 
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -41,11 +39,10 @@ export default function Home({ currencies }: Props) {
   } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    // const { identifier } = await bitnovoApiClient.makeOrder(data);
-    // dispatch(setPayment(identifier));
+    const { identifier } = await bitnovoApiClient.makeOrder(data);
+    dispatch(setPayment(identifier));
+    router.push("/order-summary");
   };
-
-  const count = useSelector((state: RootState) => state.payment.identifier);
 
   const dispatch = useDispatch();
 
@@ -125,13 +122,6 @@ export default function Home({ currencies }: Props) {
           Continuar
         </button>
       </form>
-      <button
-        onClick={() => {
-          router.push("/payment");
-        }}
-      >
-        asdasdasdasd
-      </button>
     </div>
   );
 }
