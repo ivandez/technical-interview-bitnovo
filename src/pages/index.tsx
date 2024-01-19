@@ -107,7 +107,7 @@ export default function Home({ currencies }: Props) {
 
         <button
           type="submit"
-          className="rounded border-solid bg-blue-800 w-full text-white px-18 py-6"
+          className="rounded border-solid bg-blue-800 w-full text-white px-18 py-"
         >
           Continuar
         </button>
