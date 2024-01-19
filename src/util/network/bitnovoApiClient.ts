@@ -12,6 +12,12 @@ class BitnovoApiClient {
     const response = await this.axiosClient.get("/currencies");
     return response.data;
   }
+
+  async makeOrder(payload: any): Promise<any> {
+    const response = await this.axiosClient.post("/orders/", payload);
+
+    return response.data;
+  }
 }
 
 const bitnovoApiClient = new BitnovoApiClient(axiosClient);
