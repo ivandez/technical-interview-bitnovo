@@ -1,10 +1,11 @@
+import { AxiosInstance } from "axios";
 import axiosClient from "./axiosClient";
 import { Currency } from "./domain/interfaces";
 
 class BitnovoApiClient {
-  private axiosClient: any;
+  private axiosClient: AxiosInstance;
 
-  constructor(axiosClient: any) {
+  constructor(axiosClient: AxiosInstance) {
     this.axiosClient = axiosClient;
   }
 
