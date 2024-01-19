@@ -1,4 +1,4 @@
-export interface Currencies {
+export interface Currency {
   symbol: string;
   name: string;
   min_amount: string;

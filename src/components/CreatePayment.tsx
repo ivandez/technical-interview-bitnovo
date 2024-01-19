@@ -1,11 +1,11 @@
 import { setPayment } from "@/redux/features/paymentSlice";
 import getMinAndMaxByCurrency from "@/util/getMinAndMaxByCurrency";
 import bitnovoApiClient from "@/util/network/bitnovoApiClient";
-import { Currencies } from "@/util/network/domain/interfaces";
+import { Currency } from "@/util/network/domain/interfaces";
 import { useRouter } from "next/router";
 
 import { useForm, SubmitHandler } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 type Inputs = {
   input_currency: string;
@@ -23,7 +23,7 @@ export async function getStaticProps() {
 }
 
 type Props = {
-  currencies: Currencies[];
+  currencies: Currency[];
 };
 export default function CreatePayment({ currencies }: Props) {
   const router = useRouter();

@@ -1,5 +1,5 @@
 import axiosClient from "./axiosClient";
-import { Currencies } from "./domain/interfaces";
+import { Currency } from "./domain/interfaces";
 
 class BitnovoApiClient {
   private axiosClient: any;
@@ -8,7 +8,7 @@ class BitnovoApiClient {
     this.axiosClient = axiosClient;
   }
 
-  async getCurrencies(): Promise<Currencies[]> {
+  async getCurrencies(): Promise<Currency[]> {
     const response = await this.axiosClient.get("/currencies");
     return response.data;
   }
