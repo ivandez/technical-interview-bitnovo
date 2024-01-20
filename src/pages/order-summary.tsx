@@ -3,24 +3,13 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { useEffect } from "react";
 import { OrderPayment, Status } from "@/util/network/domain/interfaces";
-
-const date = new Date("2024-01-19T17:27:58.094653+01:00");
-
-const humanReadableDate = `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
-
-// console.log(humanReadableDate);
+import humanReadableDate from "@/util/humanReadableDate";
+import timerPng from "../../public/timer.png";
+import verify from "../../public/verify.png";
+import Image from "next/image";
 
 export default function OrderSummary() {
   const payment = useSelector((state: RootState) => state.payment);
-  console.log("🚀 ~ OrderSummary ~ payment:", payment);
-
-  const socket = new WebSocket(
-    `wss://payments.pre-bnvo.com/ws/${payment.identifier}`
-  );
-
-  socket.onopen = () => {
-    console.log("connected");
-  };
 
   useEffect(() => {
     const socket = new WebSocket(
@@ -49,26 +38,66 @@ export default function OrderSummary() {
   }, [payment.identifier]);
 
   return (
-    <div>
-      <h1>resumen pedido</h1>
+    <div className="grid grid-cols-1 gap-8">
+      <div>
+        <p className="text-[#002859] font-bold text-xl">Resumen del pedido</p>
+        <div className="flex flex-col">
+          <div className="flex justify-between">
+            <p className="text-[#002859] font-bold">Importe:</p>
+            <p>{payment.fiat_amount} EUR</p>
+          </div>
+          <hr />
 
-      <p>importe</p>
-      <p>{payment.fiat_amount}</p>
-      <br />
+          <div className="flex justify-between">
+            <p className="text-[#002859] font-bold">Moneda seleccionada:</p>
+            <p>{payment.currency_id}</p>
+          </div>
+          <hr />
 
-      <p>moneda seleccionada</p>
-      <p>{payment.currency_id}</p>
-      <br />
+          <div className="flex justify-between">
+            <p className="text-[#002859] font-bold">Comercio:</p>
+            <div className="flex gap-1">
+              <Image src={verify} alt="verify" />
+              <p>Comercio de pruebas de Semega</p>
+            </div>
+          </div>
 
-      <p>fecha</p>
-      <p>{payment.created_at.toString()}</p>
-      <br />
+          <div className="flex justify-between">
+            <p className="text-[#002859] font-bold">Fecha:</p>
+            <p>{humanReadableDate(payment.created_at)}</p>
+          </div>
+          <hr />
 
-      <p>Concepto</p>
-      <p>{payment.notes}</p>
-      <br />
+          <div className="flex justify-between">
+            <p className="text-[#002859] font-bold">Concepto:</p>
+            <p>{payment.notes}</p>
+          </div>
+        </div>
+      </div>
 
-      <QRCode value={payment.address} />
+      <div className="flex flex-col items-center gap-3">
+        <p className="text-[#002859] font-bold text-xl">Realiza el pago</p>
+
+        <div className="flex gap-1">
+          <Image src={timerPng} alt="timer" />
+          <span className="text-[#002859]">05:08</span>
+        </div>
+
+        <div className="flex gap-2">
+          <span className="rounded-full bg-[#035AC5] text-white px-[6px] py-3">
+            Smart QR
+          </span>
+          <span>Web3</span>
+        </div>
+        <QRCode value={payment.address} />
+        <div>
+          <p className="text-[#002859]">
+            Enviar <span className="font-bold">108,02 XRP</span>
+          </p>
+        </div>
+        <p className="text-[#002859]">{payment.address}</p>
+        <p className="text-[#002859]">Etiqueta de destino: 2557164061</p>
+      </div>
     </div>
   );
 }
