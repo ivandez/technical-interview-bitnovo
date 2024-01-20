@@ -3,7 +3,6 @@ import getMinAndMaxByCurrency from "@/util/getMinAndMaxByCurrency";
 import bitnovoApiClient from "@/util/network/bitnovoApiClient";
 import { Currency } from "@/util/network/domain/interfaces";
 import { useRouter } from "next/router";
-
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useDispatch } from "react-redux";
 
@@ -33,15 +32,13 @@ export default function CreatePayment({ currencies }: Props) {
     register,
     handleSubmit,
     watch,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     const { identifier } = await bitnovoApiClient.makeOrder(data);
-
     const { fiat_amount, currency_id, created_at, notes, address } =
       await bitnovoApiClient.getOrder(identifier);
-
     const payload = {
       identifier,
       fiat_amount, //importe
@@ -50,10 +47,7 @@ export default function CreatePayment({ currencies }: Props) {
       notes, //concepto
       address,
     };
-    console.log("🚀 ~ constonSubmit:SubmitHandler<Inputs>= ~ order:", payload);
-
     dispatch(setPayment(payload));
-
     router.push("/order-summary");
   };
 
@@ -63,10 +57,15 @@ export default function CreatePayment({ currencies }: Props) {
 
   return (
     <div className="flex flex-col w-full container mx-auto px-4">
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-8">
-        <h1 className="text-2xl text-center">Crear pago</h1>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex flex-col gap-8 lg:w-[609px] lg:mx-auto"
+      >
+        <h1 className="text-2xl text-center text-[#002859] font-bold">
+          Crear pago
+        </h1>
         <div className="flex flex-col gap-1">
-          <label className="font-bold">Importe a pagar</label>
+          <label className="text-[#002859] font-bold">Importe a pagar</label>
           <input
             type="number"
             {...register("expected_output_amount", {
@@ -95,7 +94,7 @@ export default function CreatePayment({ currencies }: Props) {
         </div>
 
         <div className="flex flex-col gap-1">
-          <label className="font-bold">Selecionar moneda</label>
+          <label className="text-[#002859] font-bold">Selecionar moneda</label>
           <select
             {...register("input_currency", { required: true })}
             className="rounded border-[#647184] border-solid border-[1px] px-3 py-[18px] bg-white"
@@ -114,7 +113,7 @@ export default function CreatePayment({ currencies }: Props) {
         </div>
 
         <div className="flex flex-col gap-1">
-          <label className="font-bold">Concepto</label>
+          <label className="font-bold text-[#002859]">Concepto</label>
           <input
             type="text"
             {...register("notes", { required: true })}
@@ -130,7 +129,9 @@ export default function CreatePayment({ currencies }: Props) {
 
         <button
           type="submit"
-          className="rounded border-solid bg-blue-800 w-full text-white px-18 py-"
+          className={`rounded border-solid w-full text-white px-18 py-6 ${
+            isValid ? "bg-blue-800" : "bg-[#C6DFFE]"
+          }`}
         >
           Continuar
         </button>
