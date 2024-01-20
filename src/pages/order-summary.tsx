@@ -38,10 +38,11 @@ export default function OrderSummary() {
   }, [payment.identifier]);
 
   return (
-    <div className="grid grid-cols-1 gap-8">
-      <div>
+    <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-8">
+      <div className="flex flex-col gap-8">
         <p className="text-[#002859] font-bold text-xl">Resumen del pedido</p>
-        <div className="flex flex-col">
+
+        <div className="flex flex-col gap-8">
           <div className="flex justify-between">
             <p className="text-[#002859] font-bold">Importe:</p>
             <p>{payment.fiat_amount} EUR</p>
@@ -75,7 +76,7 @@ export default function OrderSummary() {
         </div>
       </div>
 
-      <div className="flex flex-col items-center gap-3">
+      <div className="flex flex-col items-center gap-8">
         <p className="text-[#002859] font-bold text-xl">Realiza el pago</p>
 
         <div className="flex gap-1">
@@ -83,8 +84,8 @@ export default function OrderSummary() {
           <span className="text-[#002859]">05:08</span>
         </div>
 
-        <div className="flex gap-2">
-          <span className="rounded-full bg-[#035AC5] text-white px-[6px] py-3">
+        <div className="flex gap-4 items-center">
+          <span className="rounded-full bg-[#035AC5] text-white px-[12px] py-[6px]">
             Smart QR
           </span>
           <span>Web3</span>
