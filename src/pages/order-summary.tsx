@@ -1,5 +1,5 @@
 import QRCode from "qrcode.react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { useEffect } from "react";
 import { OrderPayment, Status } from "@/util/network/domain/interfaces";
@@ -7,27 +7,40 @@ import humanReadableDate from "@/util/humanReadableDate";
 import timerPng from "../../public/timer.png";
 import verify from "../../public/verify.png";
 import Image from "next/image";
+import { OrderState, setOrderState } from "@/redux/features/paymentSlice";
+import { useRouter } from "next/router";
 
 export default function OrderSummary() {
   const payment = useSelector((state: RootState) => state.payment);
+
+  const dispatch = useDispatch();
+
+  const router = useRouter();
 
   useEffect(() => {
     const socket = new WebSocket(
       `wss://payments.pre-bnvo.com/ws/${payment.identifier}`
     );
 
-    socket.onopen = () => {
-      console.log("connected");
-    };
-
     socket.onmessage = (event) => {
       const data: OrderPayment = JSON.parse(event.data);
       if (data.status === Status.AC || data.status === Status.CO) {
-        console.log("paid");
+        const payload = {
+          orderState: OrderState.COMPLETED,
+        };
+
+        dispatch(setOrderState(payload));
       } else if (data.status === Status.EX || data.status === Status.OC) {
-        console.log("cancel");
+        const payload = {
+          orderState: OrderState.FAILED,
+        };
+
+        dispatch(setOrderState(payload));
       }
+
       socket.close();
+
+      router.push("/payment-result");
     };
 
     return () => {
