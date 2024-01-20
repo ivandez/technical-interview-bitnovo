@@ -25,6 +25,7 @@ export async function getStaticProps() {
 type Props = {
   currencies: Currency[];
 };
+
 export default function CreatePayment({ currencies }: Props) {
   const router = useRouter();
 

@@ -1,6 +1,6 @@
 import { AxiosInstance } from "axios";
 import axiosClient from "./axiosClient";
-import { Currency } from "./domain/interfaces";
+import { Currency, Order, OrderPayload } from "./domain/interfaces";
 
 class BitnovoApiClient {
   private axiosClient: AxiosInstance;
@@ -14,7 +14,7 @@ class BitnovoApiClient {
     return response.data;
   }
 
-  async makeOrder(payload: any): Promise<any> {
+  async makeOrder(payload: OrderPayload): Promise<Order> {
     const response = await this.axiosClient.post("/orders/", payload);
 
     return response.data;
