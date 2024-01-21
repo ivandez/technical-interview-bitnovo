@@ -5,6 +5,8 @@ import { Currency } from "@/util/network/domain/interfaces";
 import { useRouter } from "next/router";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useDispatch } from "react-redux";
+import infoPNG from "../../public/info-circle.png";
+import Image from "next/image";
 
 type Inputs = {
   input_currency: string;
@@ -94,7 +96,12 @@ export default function CreatePayment({ currencies }: Props) {
         </div>
 
         <div className="flex flex-col gap-1">
-          <label className="text-[#002859] font-bold">Selecionar moneda</label>
+          <label className="text-[#002859] font-bold">
+            Selecionar moneda{" "}
+            <span>
+              <Image src={infoPNG} alt="test" className="inline" />
+            </span>
+          </label>
           <select
             {...register("input_currency", { required: true })}
             className="rounded border-[#647184] border-solid border-[1px] px-3 py-[18px] bg-white"
