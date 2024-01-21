@@ -52,23 +52,26 @@ function Order() {
 
   return (
     <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-8">
-      <div className="flex flex-col gap-8">
+      <div className="flex flex-col gap-8 ">
         <p className="text-[#002859] font-bold text-xl">Resumen del pedido</p>
-
-        <div className="flex flex-col gap-8">
-          <div className="flex justify-between">
-            <p className="text-[#002859] font-bold">Importe:</p>
-            <p className="text-[#002859] font-bold">
-              {payment.fiat_amount} EUR
-            </p>
+        <div className="flex flex-col gap-8  bg-[#F9FAFC] rounded p-8">
+          <div>
+            <div className="flex justify-between mb-4">
+              <p className="text-[#002859] font-bold">Importe:</p>
+              <p className="text-[#002859] font-bold">
+                {payment.fiat_amount} EUR
+              </p>
+            </div>
+            <hr />
           </div>
-          <hr />
 
-          <div className="flex justify-between">
-            <p className="text-[#002859] font-bold">Moneda seleccionada:</p>
-            <p className="text-[#002859] font-bold">{payment.currency_id}</p>
+          <div>
+            <div className="flex justify-between mb-4">
+              <p className="text-[#002859] font-bold">Moneda seleccionada:</p>
+              <p className="text-[#002859] font-bold">{payment.currency_id}</p>
+            </div>
+            <hr />
           </div>
-          <hr />
 
           <div className="flex justify-between">
             <p className="text-[#002859] font-bold">Comercio:</p>
@@ -78,11 +81,13 @@ function Order() {
             </div>
           </div>
 
-          <div className="flex justify-between">
-            <p className="text-[#002859] font-bold">Fecha:</p>
-            <p>{humanReadableDate(payment.created_at)}</p>
+          <div>
+            <div className="flex justify-between mb-4">
+              <p className="text-[#002859] font-bold">Fecha:</p>
+              <p>{humanReadableDate(payment.created_at)}</p>
+            </div>
+            <hr />
           </div>
-          <hr />
 
           <div className="flex justify-between">
             <p className="text-[#002859] font-bold">Concepto:</p>

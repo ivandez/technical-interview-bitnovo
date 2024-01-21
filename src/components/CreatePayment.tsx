@@ -35,7 +35,11 @@ export default function CreatePayment({ currencies }: Props) {
     handleSubmit,
     watch,
     formState: { errors, isValid },
-  } = useForm<Inputs>();
+  } = useForm<Inputs>({
+    defaultValues: {
+      input_currency: ValidCurrency.BCH_TEST,
+    },
+  });
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     const { identifier } = await bitnovoApiClient.makeOrder(data);
