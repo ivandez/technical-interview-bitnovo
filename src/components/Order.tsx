@@ -24,6 +24,7 @@ function Order() {
 
     socket.onmessage = (event) => {
       const data: OrderPayment = JSON.parse(event.data);
+
       if (data.status === Status.AC || data.status === Status.CO) {
         const payload = {
           orderState: OrderState.COMPLETED,
@@ -41,12 +42,6 @@ function Order() {
       socket.close();
 
       router.push("/payment-result");
-    };
-
-    return () => {
-      if (socket) {
-        socket.close();
-      }
     };
   }, [payment.identifier]);
 
