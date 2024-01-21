@@ -43,6 +43,16 @@ export interface OrderPayload {
   orderState: OrderState;
 }
 
+export interface ResetPayload {
+  identifier: string;
+  fiat_amount: number;
+  currency_id: string;
+  created_at: Date;
+  notes: string;
+  address: string;
+  orderState: OrderState;
+}
+
 export const paymentSlice = createSlice({
   name: "payment",
   initialState,
@@ -58,10 +68,20 @@ export const paymentSlice = createSlice({
     setOrderState: (state, action: PayloadAction<any>) => {
       state.orderState = action.payload.orderState;
     },
+    setResetState: (state, action: PayloadAction<ResetPayload>) => {
+      state.identifier += action.payload.identifier;
+      state.fiat_amount += action.payload.fiat_amount;
+      state.currency_id += action.payload.currency_id;
+      state.created_at = action.payload.created_at;
+      state.address = action.payload.address;
+      state.notes += action.payload.notes;
+      state.orderState = action.payload.orderState;
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setPayment, setOrderState } = paymentSlice.actions;
+export const { setPayment, setOrderState, setResetState } =
+  paymentSlice.actions;
 
 export default paymentSlice.reducer;
