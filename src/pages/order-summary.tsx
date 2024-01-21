@@ -58,13 +58,15 @@ export default function OrderSummary() {
         <div className="flex flex-col gap-8">
           <div className="flex justify-between">
             <p className="text-[#002859] font-bold">Importe:</p>
-            <p>{payment.fiat_amount} EUR</p>
+            <p className="text-[#002859] font-bold">
+              {payment.fiat_amount} EUR
+            </p>
           </div>
           <hr />
 
           <div className="flex justify-between">
             <p className="text-[#002859] font-bold">Moneda seleccionada:</p>
-            <p>{payment.currency_id}</p>
+            <p className="text-[#002859] font-bold">{payment.currency_id}</p>
           </div>
           <hr />
 
@@ -72,7 +74,7 @@ export default function OrderSummary() {
             <p className="text-[#002859] font-bold">Comercio:</p>
             <div className="flex gap-1">
               <Image src={verify} alt="verify" />
-              <p>Comercio de pruebas de Semega</p>
+              <p className="text-[#002859]">Comercio de pruebas de Semega</p>
             </div>
           </div>
 
@@ -84,7 +86,7 @@ export default function OrderSummary() {
 
           <div className="flex justify-between">
             <p className="text-[#002859] font-bold">Concepto:</p>
-            <p>{payment.notes}</p>
+            <p className="text-[#002859]">{payment.notes}</p>
           </div>
         </div>
       </div>
