@@ -1,7 +1,7 @@
 import { setPayment } from "@/redux/features/paymentSlice";
 import getMinAndMaxByCurrency from "@/util/getMinAndMaxByCurrency";
 import bitnovoApiClient from "@/util/network/bitnovoApiClient";
-import { Currency } from "@/util/network/domain/interfaces";
+import { Currency, ValidCurrency } from "@/util/network/domain/interfaces";
 import { useRouter } from "next/router";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useDispatch } from "react-redux";
@@ -9,7 +9,7 @@ import infoPNG from "../../public/info-circle.png";
 import Image from "next/image";
 
 type Inputs = {
-  input_currency: string;
+  input_currency: ValidCurrency;
   notes: string;
   expected_output_amount: string;
 };

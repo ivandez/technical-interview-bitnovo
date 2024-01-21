@@ -82,3 +82,11 @@ export enum Status {
   FA = "FA",
   DE = "DE",
 }
+
+export enum ValidCurrency {
+  BCH_TEST = "BCH_TEST",
+  BTC = "BTC_TEST",
+  ETH_TEST3 = "ETH_TEST3",
+  XRP_TEST = "XRP_TEST",
+  USDC_TEST3 = "USDC_TEST3",
+}
