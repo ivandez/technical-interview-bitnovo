@@ -75,7 +75,9 @@ function Order() {
           <div>
             <div className="flex justify-between mb-4">
               <p className="text-[#002859] font-bold">Fecha:</p>
-              <p>{humanReadableDate(payment.created_at)}</p>
+              <p className="text-[#002859]">
+                {humanReadableDate(payment.created_at)}
+              </p>
             </div>
             <hr />
           </div>
@@ -88,7 +90,9 @@ function Order() {
       </div>
 
       <div className="flex flex-col items-center gap-8">
-        <p className="text-[#002859] font-bold text-xl">Realiza el pago</p>
+        <div className="flex justify-center lg:justify-start w-full">
+          <p className="text-[#002859] font-bold text-xl">Realiza el pago</p>
+        </div>
 
         <div className="flex gap-1">
           <Image src={timerPng} alt="timer" />
