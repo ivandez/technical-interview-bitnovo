@@ -52,11 +52,20 @@ const PaymentInformation = ({ paymentState }: Props) => {
             identifier: "",
             fiat_amount: 0,
             currency_id: "",
-            created_at: new Date(),
+            created_at: "",
             notes: "",
             address: "",
             orderState: OrderState.PENDING,
+
+            // identifier: "",
+            // fiat_amount: 0,
+            // currency_id: "",
+            // created_at: new Date(),
+            // notes: "",
+            // address: "",
+            // orderState: OrderState.PENDING,
           };
+
           dispatch(setResetState(payload));
         }}
       >

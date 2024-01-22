@@ -12,7 +12,7 @@ export interface PaymentState {
   identifier: string;
   fiat_amount: number;
   currency_id: string;
-  created_at: Date;
+  created_at: string;
   notes: string;
   address: string;
   orderState: OrderState;
@@ -22,7 +22,7 @@ export interface PaymentPayload {
   identifier: string;
   fiat_amount: number;
   currency_id: string;
-  created_at: Date;
+  created_at: string;
   notes: string;
   address: string;
 }
@@ -34,7 +34,7 @@ export interface ResetPayload {
   identifier: string;
   fiat_amount: number;
   currency_id: string;
-  created_at: Date;
+  created_at: string;
   notes: string;
   address: string;
   orderState: OrderState;

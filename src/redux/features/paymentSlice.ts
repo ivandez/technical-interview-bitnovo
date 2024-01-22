@@ -11,7 +11,7 @@ const initialState: PaymentState = {
   identifier: "",
   fiat_amount: 0,
   currency_id: "",
-  created_at: new Date(),
+  created_at: "",
   notes: "",
   address: "",
   orderState: OrderState.PENDING,
