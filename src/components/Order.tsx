@@ -1,5 +1,4 @@
 import { RootState } from "@/redux/store";
-import { OrderPayment, Status } from "@/util/network/domain/interfaces";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,6 +9,7 @@ import humanReadableDate from "@/util/humanReadableDate";
 import RenderPaymentMethod from "./RenderPaymentMethod";
 import { setOrderState } from "@/redux/features/paymentSlice";
 import { OrderState } from "@/redux/features/domain/interfaces";
+import useWebSocket from "@/hooks/useWebSocket";
 
 function Order() {
   const payment = useSelector((state: RootState) => state.payment);
@@ -20,33 +20,26 @@ function Order() {
 
   const [tab, setTab] = useState(true);
 
+  const [paymentOk, paymentPeding] = useWebSocket(payment.identifier);
+
   useEffect(() => {
-    const socket = new WebSocket(
-      `wss://payments.pre-bnvo.com/ws/${payment.identifier}`
-    );
-
-    socket.onmessage = (event) => {
-      const data: OrderPayment = JSON.parse(event.data);
-
-      if (data.status === Status.AC || data.status === Status.CO) {
+    if (!paymentPeding) {
+      if (paymentOk) {
         const payload = {
           orderState: OrderState.COMPLETED,
         };
 
         dispatch(setOrderState(payload));
-      } else if (data.status === Status.EX || data.status === Status.OC) {
+      } else {
         const payload = {
           orderState: OrderState.FAILED,
         };
 
         dispatch(setOrderState(payload));
       }
-
-      socket.close();
-
       router.push("/payment-result");
-    };
-  }, [payment.identifier]);
+    }
+  }, [paymentPeding]);
 
   return (
     <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-8">

@@ -2,9 +2,10 @@ import Image from "next/image";
 import Link from "next/link";
 import successImg from "../../public/tick-circlesuccess.png";
 import cancelImg from "../../public/close-circle.png";
-import { OrderState, setResetState } from "@/redux/features/paymentSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
+import { OrderState } from "@/redux/features/domain/interfaces";
+import { setResetState } from "@/redux/features/paymentSlice";
 
 type Props = {
   paymentState: OrderState;
