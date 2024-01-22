@@ -2,13 +2,16 @@ import { OrderState, setOrderState } from "@/redux/features/paymentSlice";
 import { RootState } from "@/redux/store";
 import { OrderPayment, Status } from "@/util/network/domain/interfaces";
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import verify from "../../public/verify.png";
 import timerPng from "../../public/timer.png";
 import Image from "next/image";
 import humanReadableDate from "@/util/humanReadableDate";
 import QRCode from "qrcode.react";
+import { MetaMaskProvider } from "@metamask/sdk-react";
+import { ConnectWalletButton } from "./ConnectWalletButton";
+import RenderPaymentMethod from "./RenderPaymentMethod";
 
 function Order() {
   const payment = useSelector((state: RootState) => state.payment);
@@ -16,6 +19,8 @@ function Order() {
   const dispatch = useDispatch();
 
   const router = useRouter();
+
+  const [tab, setTab] = useState(true);
 
   useEffect(() => {
     const socket = new WebSocket(
@@ -100,12 +105,24 @@ function Order() {
         </div>
 
         <div className="flex gap-4 items-center">
-          <span className="rounded-full bg-[#035AC5] text-white px-[12px] py-[6px]">
+          <span
+            className={` text-[#647184] px-[12px] py-[6px] ${
+              tab && "rounded-full bg-[#035AC5] text-white"
+            }`}
+            onClick={() => setTab(true)}
+          >
             Smart QR
           </span>
-          <span>Web3</span>
+          <span
+            onClick={() => setTab(false)}
+            className={` text-[#647184] px-[12px] py-[6px] ${
+              !tab && "rounded-full bg-[#035AC5] text-white"
+            }`}
+          >
+            Web3
+          </span>
         </div>
-        <QRCode value={payment.address} />
+        <RenderPaymentMethod address={payment.address} activeTab={tab} />
         <div>
           <p className="text-[#002859]">
             Enviar <span className="font-bold">108,02 XRP</span>
