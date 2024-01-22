@@ -104,12 +104,10 @@ function Order() {
             className={` text-[#647184] px-[12px] py-[6px] ${
               tab && "rounded-full bg-[#035AC5] text-white"
             }`}
-            onClick={() => setTab(true)}
           >
             Smart QR
           </span>
           <span
-            onClick={() => setTab(false)}
             className={` text-[#647184] px-[12px] py-[6px] ${
               !tab && "rounded-full bg-[#035AC5] text-white"
             }`}
