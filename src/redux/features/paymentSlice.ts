@@ -1,25 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-
-export enum OrderState {
-  COMPLETED = "COMPLETED",
-  FAILED = "FAILED",
-  PENDING = "PENDING",
-}
-
-export interface OrderPayload {
-  paymentState: OrderState;
-}
-
-export interface PaymentState {
-  identifier: string;
-  fiat_amount: number;
-  currency_id: string;
-  created_at: Date;
-  notes: string;
-  address: string;
-  orderState: OrderState;
-}
+import {
+  OrderState,
+  PaymentPayload,
+  PaymentState,
+  ResetPayload,
+} from "./domain/interfaces";
 
 const initialState: PaymentState = {
   identifier: "",
@@ -30,28 +16,6 @@ const initialState: PaymentState = {
   address: "",
   orderState: OrderState.PENDING,
 };
-
-export interface PaymentPayload {
-  identifier: string;
-  fiat_amount: number;
-  currency_id: string;
-  created_at: Date;
-  notes: string;
-  address: string;
-}
-export interface OrderPayload {
-  orderState: OrderState;
-}
-
-export interface ResetPayload {
-  identifier: string;
-  fiat_amount: number;
-  currency_id: string;
-  created_at: Date;
-  notes: string;
-  address: string;
-  orderState: OrderState;
-}
 
 export const paymentSlice = createSlice({
   name: "payment",

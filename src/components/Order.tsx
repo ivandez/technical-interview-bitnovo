@@ -1,4 +1,3 @@
-import { OrderState, setOrderState } from "@/redux/features/paymentSlice";
 import { RootState } from "@/redux/store";
 import { OrderPayment, Status } from "@/util/network/domain/interfaces";
 import { useRouter } from "next/router";
@@ -8,10 +7,9 @@ import verify from "../../public/verify.png";
 import timerPng from "../../public/timer.png";
 import Image from "next/image";
 import humanReadableDate from "@/util/humanReadableDate";
-import QRCode from "qrcode.react";
-import { MetaMaskProvider } from "@metamask/sdk-react";
-import { ConnectWalletButton } from "./ConnectWalletButton";
 import RenderPaymentMethod from "./RenderPaymentMethod";
+import { setOrderState } from "@/redux/features/paymentSlice";
+import { OrderState } from "@/redux/features/domain/interfaces";
 
 function Order() {
   const payment = useSelector((state: RootState) => state.payment);
