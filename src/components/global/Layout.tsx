@@ -7,7 +7,7 @@ const Layout = ({ children }: any) => {
       <div className="flex items-center justify-center w-full">{children}</div>
       <div className="flex justify-center items-end px-4 pb-3">
         <footer>
-          <Image src={footerImage} alt="footer content" />
+          <Image src={footerImage} alt="footer content" priority={true} />
         </footer>
       </div>
     </div>
