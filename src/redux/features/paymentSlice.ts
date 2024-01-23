@@ -32,14 +32,14 @@ export const paymentSlice = createSlice({
     setOrderState: (state, action: PayloadAction<any>) => {
       state.orderState = action.payload.orderState;
     },
-    setResetState: (state, action: PayloadAction<ResetPayload>) => {
-      state.identifier += action.payload.identifier;
-      state.fiat_amount += action.payload.fiat_amount;
-      state.currency_id += action.payload.currency_id;
-      state.created_at = action.payload.created_at;
-      state.address = action.payload.address;
-      state.notes += action.payload.notes;
-      state.orderState = action.payload.orderState;
+    setResetState: (state) => {
+      state.identifier += "";
+      state.fiat_amount += 0;
+      state.currency_id += "";
+      state.created_at = "";
+      state.address = "";
+      state.notes += "";
+      state.orderState = OrderState.PENDING;
     },
   },
 });

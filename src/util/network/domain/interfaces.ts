@@ -31,7 +31,7 @@ export interface OrderPayload {
 export interface OrderPayment {
   identifier: string;
   reference: null;
-  created_at: Date;
+  created_at: string;
   edited_at: Date;
   status: Status;
   fiat_amount: number;

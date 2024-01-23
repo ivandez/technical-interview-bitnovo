@@ -2,10 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import successImg from "../../public/tick-circlesuccess.png";
 import cancelImg from "../../public/close-circle.png";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
 import { OrderState } from "@/redux/features/domain/interfaces";
-import { setResetState } from "@/redux/features/paymentSlice";
 
 type Props = {
   paymentState: OrderState;
@@ -29,10 +26,6 @@ const isPaymentSuccessful = (paymentState: OrderState): boolean | undefined => {
 const PaymentInformation = ({ paymentState }: Props) => {
   const result = isPaymentSuccessful(paymentState);
 
-  const payment = useSelector((state: RootState) => state.payment);
-
-  const dispatch = useDispatch();
-
   return (
     <div className="flex flex-col justify-center items-center container mx-auto px-4 gap-4  lg:w-[609px] lg:mx-auto">
       <Image src={result ? successImg : cancelImg} alt="payment information" />
@@ -47,27 +40,6 @@ const PaymentInformation = ({ paymentState }: Props) => {
       <Link
         href="/"
         className="rounded border-solid bg-blue-800 w-full text-white px-6 py-[18px] text-center font-semibold mt-6"
-        onClick={() => {
-          const payload = {
-            identifier: "",
-            fiat_amount: 0,
-            currency_id: "",
-            created_at: "",
-            notes: "",
-            address: "",
-            orderState: OrderState.PENDING,
-
-            // identifier: "",
-            // fiat_amount: 0,
-            // currency_id: "",
-            // created_at: new Date(),
-            // notes: "",
-            // address: "",
-            // orderState: OrderState.PENDING,
-          };
-
-          dispatch(setResetState(payload));
-        }}
       >
         Crear nuevo pago
       </Link>

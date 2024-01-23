@@ -1,4 +1,4 @@
-import { setPayment } from "@/redux/features/paymentSlice";
+import { setPayment, setResetState } from "@/redux/features/paymentSlice";
 import getMinAndMaxByCurrency from "@/util/getMinAndMaxByCurrency";
 import bitnovoApiClient from "@/util/network/bitnovoApiClient";
 import { Currency, ValidCurrency } from "@/util/network/domain/interfaces";
@@ -7,6 +7,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import infoPNG from "../../public/info-circle.png";
 import Image from "next/image";
+import { useEffect } from "react";
 
 type Inputs = {
   input_currency: ValidCurrency;
@@ -60,6 +61,11 @@ export default function CreatePayment({ currencies }: Props) {
   const dispatch = useDispatch();
 
   const currentCurrency = getMinAndMaxByCurrency(watch("input_currency"));
+
+  useEffect(() => {
+    dispatch(setResetState());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="flex flex-col w-full container mx-auto px-4">
