@@ -24,27 +24,27 @@ export const paymentSlice = createSlice({
   initialState,
   reducers: {
     setPayment: (state, action: PayloadAction<PaymentPayload>) => {
-      state.identifier += action.payload.identifier;
-      state.fiat_amount += action.payload.fiat_amount;
-      state.currency_id += action.payload.currency_id;
+      state.identifier = action.payload.identifier;
+      state.fiat_amount = action.payload.fiat_amount;
+      state.currency_id = action.payload.currency_id;
       state.created_at = action.payload.created_at;
       state.address = action.payload.address;
-      state.notes += action.payload.notes;
-      state.expired_time += action.payload.expired_time;
-      state.crypto_amount += action.payload.crypto_amount;
+      state.notes = action.payload.notes;
+      state.expired_time = action.payload.expired_time;
+      state.crypto_amount = action.payload.crypto_amount;
     },
     setOrderState: (state, action: PayloadAction<any>) => {
       state.orderState = action.payload.orderState;
     },
     setResetState: (state) => {
-      state.identifier += "";
-      state.fiat_amount += 0;
-      state.currency_id += "";
+      state.identifier = "";
+      state.fiat_amount = 0;
+      state.currency_id = "";
       state.created_at = "";
       state.address = "";
-      state.notes += "";
+      state.notes = "";
       state.orderState = OrderState.PENDING;
-      state.expired_time += "";
+      state.expired_time = "";
       state.crypto_amount = 0;
     },
   },
