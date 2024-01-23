@@ -10,6 +10,7 @@ import RenderPaymentMethod from "./RenderPaymentMethod";
 import { setOrderState } from "@/redux/features/paymentSlice";
 import { OrderState } from "@/redux/features/domain/interfaces";
 import useWebSocket from "@/hooks/useWebSocket";
+import useTimer from "@/hooks/useTimer";
 
 function Order() {
   const payment = useSelector((state: RootState) => state.payment);
@@ -21,6 +22,12 @@ function Order() {
   const [tab, setTab] = useState(true);
 
   const [paymentOk, paymentPeding] = useWebSocket(payment.identifier);
+
+  const time = new Date("2024-01-22T23:05:33.450436+01:00");
+
+  time.setSeconds(time.getSeconds() + 0);
+
+  const { minutes, seconds, isRunning } = useTimer(time);
 
   useEffect(() => {
     if (!paymentPeding) {
@@ -41,10 +48,19 @@ function Order() {
     }
   }, [paymentPeding]);
 
+  useEffect(() => {
+    if (!isRunning) {
+      alert("dejo de correr");
+    }
+  }, [isRunning]);
+
   return (
     <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-8">
       <div className="flex flex-col gap-8 ">
         <p className="text-[#002859] font-bold text-xl">Resumen del pedido</p>
+        <h1>
+          {minutes}, {seconds}
+        </h1>
         <div className="flex flex-col gap-8  bg-[#F9FAFC] rounded p-8">
           <div>
             <div className="flex justify-between mb-4">
@@ -96,7 +112,7 @@ function Order() {
 
         <div className="flex gap-1">
           <Image src={timerPng} alt="timer" />
-          <span className="text-[#002859]">05:08</span>
+          <span className="text-[#002859]">{`${minutes}:${seconds}`}</span>
         </div>
 
         <div className="flex gap-4 items-center">
