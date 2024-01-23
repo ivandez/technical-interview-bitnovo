@@ -51,6 +51,7 @@ export default function CreatePayment({ currencies }: Props) {
       notes,
       address,
       expired_time,
+      crypto_amount,
     } = await bitnovoApiClient.getOrder(identifier);
 
     const payload = {
@@ -61,6 +62,7 @@ export default function CreatePayment({ currencies }: Props) {
       notes, //concepto
       address,
       expired_time,
+      crypto_amount,
     };
     dispatch(setPayment(payload));
     router.push("/order-summary");

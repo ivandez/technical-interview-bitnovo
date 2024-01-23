@@ -17,6 +17,7 @@ export interface PaymentState {
   notes: string;
   address: string;
   orderState: OrderState;
+  crypto_amount: number;
 }
 
 export interface PaymentPayload {
@@ -27,6 +28,7 @@ export interface PaymentPayload {
   expired_time: string;
   notes: string;
   address: string;
+  crypto_amount: number;
 }
 export interface OrderPayload {
   orderState: OrderState;

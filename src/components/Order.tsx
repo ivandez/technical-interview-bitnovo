@@ -14,6 +14,7 @@ import useTimer from "@/hooks/useTimer";
 
 function Order() {
   const payment = useSelector((state: RootState) => state.payment);
+  console.log("🚀 ~ Order ~ payment:", payment);
 
   const dispatch = useDispatch();
 
@@ -137,7 +138,7 @@ function Order() {
         <RenderPaymentMethod address={payment.address} activeTab={tab} />
         <div>
           <p className="text-[#002859]">
-            Enviar <span className="font-bold">108,02 XRP</span>
+            Enviar <span className="font-bold">{payment.crypto_amount}</span>
           </p>
         </div>
         <p className="text-[#002859]">{payment.address}</p>
