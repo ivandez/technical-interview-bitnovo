@@ -46,7 +46,7 @@ export interface OrderPayment {
   url_ko: null;
   url_ok: null;
   url_standby: null;
-  expired_time: Date;
+  expired_time: string;
   good_fee: boolean;
   notes: string;
   rbf: boolean;

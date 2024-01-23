@@ -19,11 +19,11 @@ function Order() {
 
   const router = useRouter();
 
-  const [tab, setTab] = useState(true);
+  const [tab] = useState(true);
 
   const [paymentOk, paymentPeding] = useWebSocket(payment.identifier);
 
-  const time = new Date("2024-01-22T23:05:33.450436+01:00");
+  const time = new Date(payment.expired_time);
 
   time.setSeconds(time.getSeconds() + 0);
 
@@ -50,7 +50,13 @@ function Order() {
 
   useEffect(() => {
     if (!isRunning) {
-      alert("dejo de correr");
+      const payload = {
+        orderState: OrderState.FAILED,
+      };
+
+      dispatch(setOrderState(payload));
+
+      router.push("/payment-result");
     }
   }, [isRunning]);
 
@@ -58,9 +64,6 @@ function Order() {
     <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-8">
       <div className="flex flex-col gap-8 ">
         <p className="text-[#002859] font-bold text-xl">Resumen del pedido</p>
-        <h1>
-          {minutes}, {seconds}
-        </h1>
         <div className="flex flex-col gap-8  bg-[#F9FAFC] rounded p-8">
           <div>
             <div className="flex justify-between mb-4">

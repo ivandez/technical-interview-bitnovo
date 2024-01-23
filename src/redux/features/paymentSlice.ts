@@ -14,6 +14,7 @@ const initialState: PaymentState = {
   created_at: "",
   notes: "",
   address: "",
+  expired_time: "",
   orderState: OrderState.PENDING,
 };
 
@@ -28,6 +29,7 @@ export const paymentSlice = createSlice({
       state.created_at = action.payload.created_at;
       state.address = action.payload.address;
       state.notes += action.payload.notes;
+      state.expired_time += action.payload.expired_time;
     },
     setOrderState: (state, action: PayloadAction<any>) => {
       state.orderState = action.payload.orderState;
@@ -40,6 +42,7 @@ export const paymentSlice = createSlice({
       state.address = "";
       state.notes += "";
       state.orderState = OrderState.PENDING;
+      state.expired_time += "";
     },
   },
 });

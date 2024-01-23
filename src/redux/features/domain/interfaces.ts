@@ -13,6 +13,7 @@ export interface PaymentState {
   fiat_amount: number;
   currency_id: string;
   created_at: string;
+  expired_time: string;
   notes: string;
   address: string;
   orderState: OrderState;
@@ -23,6 +24,7 @@ export interface PaymentPayload {
   fiat_amount: number;
   currency_id: string;
   created_at: string;
+  expired_time: string;
   notes: string;
   address: string;
 }

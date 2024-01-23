@@ -44,8 +44,15 @@ export default function CreatePayment({ currencies }: Props) {
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     const { identifier } = await bitnovoApiClient.makeOrder(data);
-    const { fiat_amount, currency_id, created_at, notes, address } =
-      await bitnovoApiClient.getOrder(identifier);
+    const {
+      fiat_amount,
+      currency_id,
+      created_at,
+      notes,
+      address,
+      expired_time,
+    } = await bitnovoApiClient.getOrder(identifier);
+
     const payload = {
       identifier,
       fiat_amount, //importe
@@ -53,6 +60,7 @@ export default function CreatePayment({ currencies }: Props) {
       created_at, //fecha de creación
       notes, //concepto
       address,
+      expired_time,
     };
     dispatch(setPayment(payload));
     router.push("/order-summary");
