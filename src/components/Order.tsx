@@ -11,6 +11,7 @@ import { setOrderState } from "@/redux/features/paymentSlice";
 import { OrderState } from "@/redux/features/domain/interfaces";
 import useWebSocket from "@/hooks/useWebSocket";
 import useTimer from "@/hooks/useTimer";
+import cryptoDictionary from "@/util/cryptoDictionary";
 
 function Order() {
   const payment = useSelector((state: RootState) => state.payment);
@@ -79,7 +80,9 @@ function Order() {
           <div>
             <div className="flex justify-between mb-4">
               <p className="text-[#002859] font-bold">Moneda seleccionada:</p>
-              <p className="text-[#002859] font-bold">{payment.currency_id}</p>
+              <p className="text-[#002859] font-bold">
+                {cryptoDictionary[payment.currency_id]}
+              </p>
             </div>
             <hr />
           </div>
@@ -138,7 +141,10 @@ function Order() {
         <RenderPaymentMethod address={payment.address} activeTab={tab} />
         <div>
           <p className="text-[#002859]">
-            Enviar <span className="font-bold">{payment.crypto_amount}</span>
+            Enviar{" "}
+            <span className="font-bold">{`${payment.crypto_amount} ${
+              cryptoDictionary[payment.currency_id]
+            }`}</span>
           </p>
         </div>
         <p className="text-[#002859]">{payment.address}</p>
