@@ -7,8 +7,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import infoPNG from "../../public/info-circle.png";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import SmartSearch from "./SmartSearch";
+import { useEffect } from "react";
 
 type Inputs = {
   input_currency: ValidCurrency;
@@ -36,7 +35,6 @@ export default function CreatePayment({ currencies }: Props) {
     register,
     handleSubmit,
     watch,
-    setValue,
     formState: { errors, isValid },
   } = useForm<Inputs>({
     defaultValues: {
@@ -44,23 +42,20 @@ export default function CreatePayment({ currencies }: Props) {
     },
   });
 
-  const [openSelect, setOpenSelect] = useState(false);
-
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    console.log("🚀 ~ constonSubmit:SubmitHandler<Inputs>= ~ data:", data);
-    // const { identifier } = await bitnovoApiClient.makeOrder(data);
-    // const { fiat_amount, currency_id, created_at, notes, address } =
-    //   await bitnovoApiClient.getOrder(identifier);
-    // const payload = {
-    //   identifier,
-    //   fiat_amount, //importe
-    //   currency_id, //moneda seleccionada
-    //   created_at, //fecha de creación
-    //   notes, //concepto
-    //   address,
-    // };
-    // dispatch(setPayment(payload));
-    // router.push("/order-summary");
+    const { identifier } = await bitnovoApiClient.makeOrder(data);
+    const { fiat_amount, currency_id, created_at, notes, address } =
+      await bitnovoApiClient.getOrder(identifier);
+    const payload = {
+      identifier,
+      fiat_amount, //importe
+      currency_id, //moneda seleccionada
+      created_at, //fecha de creación
+      notes, //concepto
+      address,
+    };
+    dispatch(setPayment(payload));
+    router.push("/order-summary");
   };
 
   const dispatch = useDispatch();
@@ -78,14 +73,6 @@ export default function CreatePayment({ currencies }: Props) {
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col gap-8 lg:w-[609px] lg:mx-auto relative"
       >
-        {openSelect && (
-          <SmartSearch
-            setValue={setValue}
-            setOpenSelect={setOpenSelect}
-            currencies={currencies}
-          />
-        )}
-
         <h1 className="text-2xl text-center text-[#002859] font-bold">
           Crear pago
         </h1>
@@ -125,7 +112,7 @@ export default function CreatePayment({ currencies }: Props) {
               <Image src={infoPNG} alt="test" className="inline" />
             </span>
           </label>
-          {/* <select
+          <select
             {...register("input_currency", { required: true })}
             className="rounded border-[#647184] border-solid border-[1px] px-3 py-[18px] bg-white"
           >
@@ -134,10 +121,7 @@ export default function CreatePayment({ currencies }: Props) {
                 {currency.name}
               </option>
             ))}
-          </select> */}
-          <button onClick={() => setOpenSelect(!openSelect)}>
-            selecionar modena
-          </button>
+          </select>
           {errors.input_currency?.type === "required" && (
             <p role="alert" className="text-red-500">
               Moneda es requerido
