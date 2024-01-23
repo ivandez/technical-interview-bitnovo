@@ -3,8 +3,6 @@ const date = new Date("2024-01-19T17:27:58.094653+01:00");
 
 const humanReadableDate = `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
 
-console.log(humanReadableDate);
-
 const Payment = () => {
   return (
     <div>

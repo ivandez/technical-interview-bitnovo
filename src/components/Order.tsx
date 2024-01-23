@@ -15,7 +15,6 @@ import cryptoDictionary from "@/util/cryptoDictionary";
 
 function Order() {
   const payment = useSelector((state: RootState) => state.payment);
-  console.log("🚀 ~ Order ~ payment:", payment);
 
   const dispatch = useDispatch();
 
@@ -32,27 +31,22 @@ function Order() {
   const { minutes, seconds, isRunning } = useTimer(time);
 
   useEffect(() => {
-    // if (!paymentPeding) {
-    //   if (paymentOk) {
-    //     const payload = {
-    //       orderState: OrderState.COMPLETED,
-    //     };
+    if (!paymentPeding) {
+      if (paymentOk) {
+        const payload = {
+          orderState: OrderState.COMPLETED,
+        };
 
-    //     dispatch(setOrderState(payload));
-    //   } else {
-    //     const payload = {
-    //       orderState: OrderState.FAILED,
-    //     };
+        dispatch(setOrderState(payload));
+      } else {
+        const payload = {
+          orderState: OrderState.FAILED,
+        };
 
-    //     dispatch(setOrderState(payload));
-    //   }
-    const payload = {
-      orderState: OrderState.COMPLETED,
-    };
-
-    dispatch(setOrderState(payload));
-    router.push("/payment-result");
-    // }
+        dispatch(setOrderState(payload));
+      }
+      router.push("/payment-result");
+    }
   }, [paymentPeding]);
 
   useEffect(() => {
